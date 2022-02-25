@@ -172,13 +172,13 @@ public class DesiredCapabilitiesConfigurationProperties {
      * This enables the extended debugging feature on SauceLabs. The default on SauceLabs is to have this set as false.
      * Required to be true for capturePerformance to be enabled.
      */
-    private boolean extendedDebugging = false;
+    private Boolean extendedDebugging;
 
     /**
      * This enables the performance capturing feature on SauceLabs. The default on SauceLabs is to have this set as false.
      * extendedDebugging must also be true for this to work.
      */
-    private boolean capturePerformance = false;
+    private Boolean capturePerformance;
   }
 
   /**

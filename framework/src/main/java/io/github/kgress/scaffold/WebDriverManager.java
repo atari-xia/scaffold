@@ -582,14 +582,14 @@ public class WebDriverManager {
     var sauceConfigUrl = Optional.ofNullable(sauce.getUrl())
         .orElse(URI.create("https://" + username + ":" + accessKey + defaultSauceUrl)
             .toString());
+    var extendedDebugging = Optional.ofNullable(sauce.getExtendedDebugging());
+    var capturePerformance = Optional.ofNullable(sauce.getCapturePerformance());
 
     try {
       // Required
       sauceCaps.setCapability("username", username);
       sauceCaps.setCapability("accessKey", accessKey);
       sauceCaps.setCapability("name", testName);
-      sauceCaps.setCapability("extendedDebugging", sauce.isExtendedDebugging());
-      sauceCaps.setCapability("capturePerformance", sauce.isCapturePerformance());
 
       // Since we've added mobile emulation, we need to make sure screen resolution is not set
       // for a mobile emulation sauce configuration. Otherwise, set the appium version capability
@@ -608,6 +608,8 @@ public class WebDriverManager {
       parentTunnel
           .ifPresent(parentTunnelId -> sauceCaps.setCapability("parentTunnel", parentTunnelId));
       timeZone.ifPresent(tz -> sauceCaps.setCapability("timeZone", tz));
+      extendedDebugging.ifPresent(setting -> sauceCaps.setCapability("extendedDebugging", setting));
+      capturePerformance.ifPresent(setting -> sauceCaps.setCapability("capturePerformance", setting));
 
       browserOptions.setCapability("sauce:options", sauceCaps);
       return startScreenshotRemoteDriver(sauceConfigUrl, browserOptions);
