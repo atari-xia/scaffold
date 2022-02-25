@@ -588,6 +588,8 @@ public class WebDriverManager {
       sauceCaps.setCapability("username", username);
       sauceCaps.setCapability("accessKey", accessKey);
       sauceCaps.setCapability("name", testName);
+      sauceCaps.setCapability("extendedDebugging", sauce.isExtendedDebugging());
+      sauceCaps.setCapability("capturePerformance", sauce.isCapturePerformance());
 
       // Since we've added mobile emulation, we need to make sure screen resolution is not set
       // for a mobile emulation sauce configuration. Otherwise, set the appium version capability
