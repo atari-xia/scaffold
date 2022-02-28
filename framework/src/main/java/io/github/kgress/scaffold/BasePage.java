@@ -67,7 +67,9 @@ public class BasePage extends BaseComponent {
     if (isPageLoaded) {
       listOfElements.forEach(elementOnPage -> {
         try {
-          elementOnPage.isDisplayed();
+          if (!elementOnPage.isDisplayed()) {
+            throw new TimeoutException();
+          }
         } catch (TimeoutException e) {
           throw new TimeoutException(
               String.format("Page verification failed. Could not find the element " +
