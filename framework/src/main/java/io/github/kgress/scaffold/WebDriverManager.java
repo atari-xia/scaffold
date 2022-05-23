@@ -612,7 +612,9 @@ public class WebDriverManager {
       capturePerformance.ifPresent(setting -> sauceCaps.setCapability("capturePerformance", setting));
 
       browserOptions.setCapability("sauce:options", sauceCaps);
-      return startScreenshotRemoteDriver(sauceConfigUrl, browserOptions);
+      var remoteWebDriver = startScreenshotRemoteDriver(sauceConfigUrl, browserOptions);
+      TestContext.baseContext().addSetting("SESSION_ID", remoteWebDriver.getSessionId().toString());
+      return remoteWebDriver;
     } catch (Exception e) {
       throw new WebDriverManagerException(
           "Unable to start new remote session against SauceLabs. Check the caused by in the stacktrace below.",
